@@ -1,4 +1,5 @@
 // constants.ts
+import { Page, chromium, BrowserContextOptions } from 'playwright';
 
 export const FIREFOX_SETTINGS: { [key: string]: boolean | number } = {
     "pdfjs.disabled": false,
@@ -68,7 +69,37 @@ export const HEADERS = {
     'Accept-Language': 'en-US,en;q=0.9',
 };
 
+export const browserArgs: string[] = [
+    '--disable-web-security',
+    '--disable-features=IsolateOrigins,site-per-process',
+    '--disable-blink-features=AutomationControlled',
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
+    '--disable-dev-shm-usage',
+    '--disable-webgl',
+    '--disable-rtc-smoothness-algorithm',
+    '--disable-webrtc-encryption',
+];
+
+export const contextOptions: BrowserContextOptions = {
+    viewport: { width: 1280, height: 720 },
+    userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+    ignoreHTTPSErrors: true,
+    geolocation: { latitude: 6.5, longitude: 3.3 },
+    permissions: ['geolocation'],
+    extraHTTPHeaders: {
+        'Accept-Language': 'en-US,en;q=0.9',
+    },
+};
+
 export const LOGIN_URL = 'https://www.linkedin.com/login';
 export const HOME_URL = 'https://www.linkedin.com/feed/';
 export const KEEP_ALIVE_URL = 'https://www.linkedin.com/mynetwork/';
 export const PROXY_URL = 'http://proxy-url.example.com'; // Replace with your actual proxy URL if needed
+
+export const EMAIL = process.env.LINKEDIN_EMAIL || 'richardokonicha@gmail.com';
+export const PASSWORD = process.env.LINKEDIN_PASSWORD || 'Shoo';
+export const authFile = 'playwright/.auth/user.json';
+
+
+export const PEOPLE_URL  = "https://www.linkedin.com/search/results/people/?geoUrn=%5B%22103644278%22%5D&network=%5B%22F%22%5D&origin=FACETED_SEARCH&sid=_vU"
